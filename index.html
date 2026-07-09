@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #141414; /* Основной темный фон */
-            color: #CFCFCF; /* Светло-серый текст */
+            background-color: #141414;
+            color: #CFCFCF;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,7 +35,7 @@
             z-index: 1;
         }
 
-        /* Карточка профиля */
+        /* Анимация появления карточки */
         .card {
             background: rgba(20, 20, 20, 0.75);
             border: 2px solid #7F49B4;
@@ -48,6 +48,16 @@
             box-shadow: 0 12px 40px rgba(127, 73, 180, 0.2);
             z-index: 2;
             position: relative;
+            animation: fadeInCard 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Четырехконечная звезда */
@@ -77,14 +87,62 @@
             text-shadow: 0 0 10px rgba(127, 73, 180, 0.5);
         }
 
-        /* Блок "О себе" */
-        .about-section {
+        /* Стили скругленных вкладок (кнопок) */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background: rgba(127, 73, 180, 0.1);
+            color: #CFCFCF;
+            border: 1px solid rgba(127, 73, 180, 0.3);
+            padding: 8px 16px;
+            border-radius: 30px; /* Сильное закругление */
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(127, 73, 180, 0.25);
+            border-color: #7F49B4;
+        }
+
+        .tab-btn.active {
+            background: #7F49B4;
+            color: #141414;
+            border-color: #7F49B4;
+            box-shadow: 0 0 10px rgba(127, 73, 180, 0.5);
+        }
+
+        /* Контент вкладок с анимацией плавного выезда */
+        .tab-content {
+            display: none;
             text-align: center;
             font-size: 1.05rem;
             line-height: 1.6;
             color: rgba(207, 207, 207, 0.85);
-            margin-bottom: 35px;
-            padding: 0 10px;
+            min-height: 70px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideIn 0.4s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Блок информации */
@@ -92,6 +150,7 @@
             text-align: left;
             border-top: 1px solid rgba(207, 207, 207, 0.1);
             padding-top: 25px;
+            margin-top: 25px;
         }
 
         .info-title {
@@ -138,9 +197,26 @@
         <!-- Надпись по центру -->
         <h1><span class="highlight">Приветствую</span></h1>
 
-        <!-- Кратко о себе -->
-        <div class="about-section">
+        <!-- Контейнер для закругленных вкладок -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab(event, 'about')">О себе</button>
+            <button class="tab-btn" onclick="openTab(event, 'age')">Возраст</button>
+            <button class="tab-btn" onclick="openTab(event, 'music')">Музыка</button>
+        </div>
+
+        <!-- Контент вкладки "О себе" -->
+        <div id="about" class="tab-content active">
             Интересуюсь технологиями, кастомизацией Android и компьютерным железом. В свободное время просто сплю.
+        </div>
+
+        <!-- Контент вкладки "Возраст" -->
+        <div id="age" class="tab-content">
+            Мне <span class="highlight" style="font-weight: bold; text-shadow: none;">14</span> лет. Активно изучаю то, что мне интересно, и развиваюсь.
+        </div>
+
+        <!-- Контент вкладки "Музыка" -->
+        <div id="music" class="tab-content">
+            Любимой музыки пока нет. Нахожусь в постоянном поиске годных треков и нового звучания.
         </div>
 
         <!-- Информация -->
@@ -163,6 +239,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Скрипт для работы вкладок и анимации -->
+    <script>
+        function openTab(evt, tabName) {
+            // Прячем весь контент
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Убираем класс active со всех кнопок
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Показываем нужную вкладку и делаем кнопку активной
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 
 </body>
 </html>
