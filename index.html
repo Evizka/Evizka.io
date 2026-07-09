@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #141414; /* Основной темный фон */
+            color: #CFCFCF; /* Светло-серый текст */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Эффект фонового свечения */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(127, 73, 180, 0.15) 0%, rgba(20, 20, 20, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        /* Карточка профиля */
+        .card {
+            background: rgba(20, 20, 20, 0.75);
+            border: 2px solid #7F49B4;
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 12px 40px rgba(127, 73, 180, 0.2);
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Четырехконечная звезда */
+        .star {
+            width: 40px;
+            height: 40px;
+            background-color: #7F49B4;
+            clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
+            margin: 0 auto 25px;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 15px #7F49B4; }
+        }
+
+        h1 {
+            color: #CFCFCF;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #7F49B4;
+            text-shadow: 0 0 10px rgba(127, 73, 180, 0.5);
+        }
+
+        /* Блок "О себе" */
+        .about-section {
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: rgba(207, 207, 207, 0.85);
+            margin-bottom: 35px;
+            padding: 0 10px;
+        }
+
+        /* Блок информации */
+        .info-block {
+            text-align: left;
+            border-top: 1px solid rgba(207, 207, 207, 0.1);
+            padding-top: 25px;
+        }
+
+        .info-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7F49B4;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .label {
+            color: rgba(207, 207, 207, 0.6);
+        }
+
+        .value {
+            font-weight: 600;
+        }
+
+        .blurred {
+            filter: blur(5px);
+            background: rgba(207, 207, 207, 0.2);
+            border-radius: 4px;
+            padding: 0 10px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="card">
+        <!-- Звезда -->
+        <div class="star"></div>
+        
+        <!-- Надпись по центру -->
+        <h1><span class="highlight">Приветствую</span></h1>
+
+        <!-- Кратко о себе -->
+        <div class="about-section">
+            Интересуюсь технологиями, кастомизацией Android и компьютерным железом. В свободное время просто сплю.
+        </div>
+
+        <!-- Информация -->
+        <div class="info-block">
+            <div class="info-title">Информация</div>
+            
+            <div class="info-item">
+                <span class="label">Имя:</span>
+                <span class="value">Илья</span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Знак зодиака:</span>
+                <span class="value">Рыбы</span>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Дата рождения:</span>
+                <span class="value blurred">██.██.████</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
