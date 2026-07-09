@@ -23,44 +23,44 @@
             position: relative;
         }
 
-        /* Эффект фонового свечения */
         .bg-glow {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(127, 73, 180, 0.15) 0%, rgba(20, 20, 20, 0) 70%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(127, 73, 180, 0.18) 0%, rgba(20, 20, 20, 0) 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
+            pointer-events: none;
         }
 
-        /* Анимация появления карточки */
         .card {
-            background: rgba(20, 20, 20, 0.75);
-            border: 2px solid #7F49B4;
+            background: rgba(20, 20, 20, 0.65);
+            border: 2px solid rgba(127, 73, 180, 0.6);
             border-radius: 24px;
             padding: 40px;
             width: 90%;
             max-width: 450px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 12px 40px rgba(127, 73, 180, 0.2);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(127, 73, 180, 0.15);
             z-index: 2;
             position: relative;
-            animation: fadeInCard 1s ease-out forwards;
+            animation: fadeInCard 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px) translateZ(0);
+            will-change: transform, opacity;
         }
 
         @keyframes fadeInCard {
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) translateZ(0);
             }
         }
 
-        /* Четырехконечная звезда */
         .star {
             width: 40px;
             height: 40px;
@@ -68,11 +68,13 @@
             clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
             margin: 0 auto 25px;
             animation: pulse 3s infinite ease-in-out;
+            will-change: transform, opacity;
+            transform: translateZ(0);
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 15px #7F49B4; }
+            0%, 100% { transform: scale(1) translateZ(0); opacity: 0.8; }
+            50% { transform: scale(1.12) translateZ(0); opacity: 1; filter: drop-shadow(0 0 8px #7F49B4); }
         }
 
         h1 {
@@ -84,10 +86,9 @@
 
         .highlight {
             color: #7F49B4;
-            text-shadow: 0 0 10px rgba(127, 73, 180, 0.5);
+            text-shadow: 0 0 12px rgba(127, 73, 180, 0.6);
         }
 
-        /* Стили скругленных вкладок (кнопок) */
         .tabs-container {
             display: flex;
             justify-content: center;
@@ -99,12 +100,13 @@
             background: rgba(127, 73, 180, 0.1);
             color: #CFCFCF;
             border: 1px solid rgba(127, 73, 180, 0.3);
-            padding: 8px 16px;
-            border-radius: 30px; /* Сильное закругление */
+            padding: 8px 18px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.9rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+            transform: translateZ(0);
         }
 
         .tab-btn:hover {
@@ -116,39 +118,38 @@
             background: #7F49B4;
             color: #141414;
             border-color: #7F49B4;
-            box-shadow: 0 0 10px rgba(127, 73, 180, 0.5);
+            box-shadow: 0 0 15px rgba(127, 73, 180, 0.4);
         }
 
-        /* Контент вкладок с анимацией плавного выезда */
         .tab-content {
             display: none;
             text-align: center;
             font-size: 1.05rem;
             line-height: 1.6;
             color: rgba(207, 207, 207, 0.85);
-            min-height: 70px;
+            min-height: 75px;
+            will-change: transform, opacity;
         }
 
         .tab-content.active {
             display: block;
-            animation: slideIn 0.4s ease-out forwards;
+            animation: slideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(-15px);
+                transform: translateX(-15px) translateZ(0);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateX(0) translateZ(0);
             }
         }
 
-        /* Блок информации */
         .info-block {
             text-align: left;
-            border-top: 1px solid rgba(207, 207, 207, 0.1);
+            border-top: 1px solid rgba(207, 207, 207, 0.15);
             padding-top: 25px;
             margin-top: 25px;
         }
@@ -178,9 +179,9 @@
         }
 
         .blurred {
-            filter: blur(5px);
-            background: rgba(207, 207, 207, 0.2);
-            border-radius: 4px;
+            filter: blur(6px);
+            background: rgba(207, 207, 207, 0.15);
+            border-radius: 6px;
             padding: 0 10px;
             user-select: none;
         }
@@ -191,35 +192,28 @@
     <div class="bg-glow"></div>
 
     <div class="card">
-        <!-- Звезда -->
         <div class="star"></div>
         
-        <!-- Надпись по центру -->
         <h1><span class="highlight">Приветствую</span></h1>
 
-        <!-- Контейнер для закругленных вкладок -->
         <div class="tabs-container">
             <button class="tab-btn active" onclick="openTab(event, 'about')">О себе</button>
             <button class="tab-btn" onclick="openTab(event, 'age')">Возраст</button>
             <button class="tab-btn" onclick="openTab(event, 'music')">Музыка</button>
         </div>
 
-        <!-- Контент вкладки "О себе" -->
         <div id="about" class="tab-content active">
             Интересуюсь технологиями, кастомизацией Android и компьютерным железом. В свободное время просто сплю.
         </div>
 
-        <!-- Контент вкладки "Возраст" -->
         <div id="age" class="tab-content">
             Мне <span class="highlight" style="font-weight: bold; text-shadow: none;">14</span> лет. Активно изучаю то, что мне интересно, и развиваюсь.
         </div>
 
-        <!-- Контент вкладки "Музыка" -->
         <div id="music" class="tab-content">
-            Любимой музыки пока нет. Нахожусь в постоянном поиске годных треков и нового звучания.
+            Любимой музыки пока нет. Нахожусь в постоянном поиске хороших треков и нового звучания.
         </div>
 
-        <!-- Информация -->
         <div class="info-block">
             <div class="info-title">Информация</div>
             
@@ -240,23 +234,19 @@
         </div>
     </div>
 
-    <!-- Скрипт для работы вкладок и анимации -->
     <script>
         function openTab(evt, tabName) {
-            // Прячем весь контент
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active");
             }
 
-            // Убираем класс active со всех кнопок
             tablinks = document.getElementsByClassName("tab-btn");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
 
-            // Показываем нужную вкладку и делаем кнопку активной
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
